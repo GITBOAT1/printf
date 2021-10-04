@@ -1,0 +1,17 @@
+.TH MAN_3_PRINTF
+.SH man_3_printf
+man_3_printf print out and out put to the screen.
+.SH SYNOPSIS
+.B man_3_printf
+[\fB\%  \fR \fIc,s,i\fR]
+[\fB\-\-%d\fR \fI_print\fR]
+.IR file ...
+.SH DESCRIPTION
+.B man_3_print
+print out t0oo the screen stop at a % and check the char following, either it
+an s,c,d,i or you to detrmin what to print out.
+.SH OPTIONS
+.BR \-n ", " \-\-bits =\fIprintf\fR
+printf can be left empty too.\
+Set the number of bits to modify.
+Default is only strings.
