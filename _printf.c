@@ -1,4 +1,38 @@
 #include "main.h"
+/**
+ * get_func - gets function for conversion
+ * @c: char to use for selection
+ * Return: pointer to function
+ */
+int (*get_func(const char c))(va_list)
+{
+int i = 0;
+
+function_identifier f[] = {
+{"c", print_char},
+{"s", print_str},
+{"S", print_str_x},
+{"%", print_percent},
+{"d", print_int},
+{"b", print_binary},
+{"i", print_int},
+{"u", print_unsigned},
+{"o", print_octal},
+{"x", print_hexa_lower},
+{"X", print_hexa_upper},
+{"p", print_ptr},
+{"r", print_str_reverse},
+{"R", print_rot13},
+};
+
+while (i < 14)
+{
+if (c == f[i].c[0])
+return(f[i].f);
+i++;
+}
+return(NULL);
+}
 
 /**
 * _printf - a function with similar features to printf
