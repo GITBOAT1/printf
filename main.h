@@ -8,9 +8,13 @@
 #include <unistd.h>
 
 int _printf(const char *format, ...);
-int print_char(va_list arg);
-int print_str(va_list arg);
+int print_char(va_list al);
+int print_str(va_list al);
 int _putchar(char c);
+int _puts(char *str, int ascii);
+int convert_alpha_numeric(int nb, int upper);
+char *convert_base(unsigned long nb, unsigned int base, int upper);
+
 
 /**
  * struct func_id - struct used for identifying function
