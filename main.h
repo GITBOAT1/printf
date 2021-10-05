@@ -22,4 +22,6 @@ typedef struct func_id
 char *c;
 int (*f)(va_list);
 } function_identifier;
+
+int get_func(char, va_list);
 #endif
