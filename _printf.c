@@ -17,10 +17,10 @@ function_identifier f[] = {
 while (i < 14)
 {
 if (c == f[i].c[0])
-return(f[i].f);
+return (f[i].f);
 i++;
 }
-return(NULL);
+return (NULL);
 }
 
 /**
@@ -29,7 +29,7 @@ return(NULL);
 * Return: number of character printed excluding the null byte
 */
 
-int _printf(const char *format, ..)
+int _printf(const char *format, ...)
 {
 unsigned int i;
 int typeCheck = 0, charRtn = 0;
