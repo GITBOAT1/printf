@@ -7,5 +7,7 @@
 #include <string.h>
 #include <unistd.h>
 
-int _printf(char *str, ...);
+int _printf(const char *format, ...);
+int print_char(va_list arg);
+int print_str(va_list arg);
 #endif

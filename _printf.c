@@ -12,18 +12,6 @@ int i = 0;
 function_identifier f[] = {
 {"c", print_char},
 {"s", print_str},
-{"S", print_str_x},
-{"%", print_percent},
-{"d", print_int},
-{"b", print_binary},
-{"i", print_int},
-{"u", print_unsigned},
-{"o", print_octal},
-{"x", print_hexa_lower},
-{"X", print_hexa_upper},
-{"p", print_ptr},
-{"r", print_str_reverse},
-{"R", print_rot13},
 };
 
 while (i < 14)
