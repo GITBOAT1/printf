@@ -1,37 +1,29 @@
+#include <stdio.h>
 #include "main.h"
 /**
  * get_func - gets function for conversion
  * @c: char to use for selection
  * Return: pointer to function
  */
-int (*get_func(const char c))(va_list)
+int get_func(char cr, va_list arg)
 {
 int i = 0;
 
 function_identifier f[] = {
 {"c", print_char},
 {"s", print_str},
-{"S", print_str_x},
-{"%", print_percent},
-{"d", print_int},
-{"b", print_binary},
-{"i", print_int},
-{"u", print_unsigned},
-{"o", print_octal},
-{"x", print_hexa_lower},
-{"X", print_hexa_upper},
-{"p", print_ptr},
-{"r", print_str_reverse},
-{"R", print_rot13},
+{NULL, NULL}
 };
 
-while (i < 14)
+for (i = 0; f[i].c != NULL; i++ )
 {
-if (c == f[i].c[0])
-return(f[i].f);
-i++;
+if (f[i].c[0] == cr)
+{
+return (f[i].f(arg));
 }
-return(NULL);
+}
+
+return (0);
 }
 
 /**
@@ -40,78 +32,55 @@ return(NULL);
 * Return: number of character printed excluding the null byte
 */
 
-int _printf(const char *format, ..)
+int _printf(const char *format, ...)
 {
-int i = 0, sum =0, j, p = 0;
-int (*function)();
+unsigned int i;
+int typeCheck = 0, charRtn = 0;
 
-va_list ap;
-va_start(ap, format);
+va_list arg;
 
-if (!format || (format[0] == '%' && format[1] == '\0'))
+va_start(arg, format);
+
+for (i = 0; format[i] != '\0'; i++)
+{
+if (format[i] != '%')
+{
+_putchar(format[i]);
+charRtn++;
+continue;
+}
+
+if (format[i + 1] == '%')
+
+_putchar('%');
+charRtn++;
+i++;
+continue;
+}
+
+if (format[i + 1] == '\0')
+{
 return (-1);
-
-if (format[0] == '%' && format[1] == ' ' && !format[2])
-return(-1);
-
-while (format[i])
-{
-if (format[i] == '%')
-{
-j = check_modifier(format[i + 1]);
-
-if (j == 0)
-{
-if (format[i + 1] != '\0')
-function = get_func(format[i + 1]);
-} else if (j < 0)
-{
-p = 1;
-if (format[i + 1] != '\0')
-function = get_func(format[i + 2]);
-} else
-{
-p = 1;
-sum += j;
-i += j;
-function = get_func(format[i + 1]);
 }
 
-if (function == NULL)
+typeCheck = get_func(format[i + 1], arg);
+
+if (typeCheck == -1 || typeCheck != 0)
 {
-_putchar(format[i]);
-sum++;
 i++;
-} else
-{
-sum += function(ap);
-i += 2;
-continue;
 }
-} else
+
+if (typeCheck > 0)
 {
-if (p == 0)
-{
-_putchar(format[i]);
-sum++;
-i++;
-} else
-{
-function = get_func(format[i + 1]);
-if (function == NULL)
-{
-_putchar(format[i]);
-sum++;
-i++;
-} else
-{
-sum += function(ap);
-i += 2;
-continue;
+charRtn += typeCheck;
 }
+
+if (typeCheck == 0)
+{
+_putchar('%');
+charRtn++;
 }
-}
-}
-va_end(ap);
-return (sum);
+
+va_end(arg);
+return (charRtn);
 }
