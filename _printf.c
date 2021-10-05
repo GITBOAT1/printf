@@ -72,7 +72,7 @@ if (format[i + 1] == '\0')
 return (-1);
 }
 
-typeCheck = printTypeChecker(format[i + 1], arg);
+typeCheck = get_func(format[i + 1], arg);
 
 if (typeCheck == -1 || typeCheck != 0)
 {
