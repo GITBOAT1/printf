@@ -5,22 +5,25 @@
  * @c: char to use for selection
  * Return: pointer to function
  */
-int (*get_func(const char c))(va_list)
+int get_func(char cr, va_list arg)
 {
 int i = 0;
 
 function_identifier f[] = {
 {"c", print_char},
 {"s", print_str},
+{NULL, NULL}
 };
 
-while (i < 14)
+for (i = 0; f[i].c != NULL; i++ )
 {
-if (c == f[i].c[0])
-return (f[i].f);
-i++;
+if (f[i].c[0] == cr)
+{
+return (f[i].f(arg));
 }
-return (NULL);
+}
+
+return (0);
 }
 
 /**
