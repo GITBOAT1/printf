@@ -12,7 +12,7 @@ int _printf(const char *str, ...)
 {
 	va_list vl;
 	int  i = 0, j = 0;
-	char buff[100] = {0};
+	char buff[1000] = {0};
 	char *str_arg;
 
 	va_start(vl, str);
