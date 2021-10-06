@@ -3,13 +3,13 @@
 /**
  * convert_alpha_numeric - turns digits to char
  * @nb: digit for converting
- * @upper: checks the case 
+ * @upper: checks the case
  * Return: converted value
  */
 int convert_alpha_numeric(int nb, int upper)
 {
 if (nb >= 10)
-return (nb - 10 +((upper) ? 'A' : 'a'));
+return (nb - 10 + ((upper) ? 'A' : 'a'));
 else
 return (nb + '0');
 }
