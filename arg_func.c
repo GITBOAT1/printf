@@ -7,13 +7,13 @@
 
 int print_char(va_list al)
 {
-char c = va_arg(al, int);
+	char c = va_arg(al, int);
 
-if (c == '\0')
-return (write(1, &c, 1));
+	if (c == '\0')
+		return (write(1, &c, 1));
 
-_putchar(c);
-return (1);
+	_putchar(c);
+	return (1);
 }
 
 /**
@@ -24,13 +24,13 @@ return (1);
 
 int print_str(va_list al)
 {
-char *arg = va_arg(al, char *);
-int sum = 0;
+	char *arg = va_arg(al, char *);
+	int sum = 0;
 
-if (!arg)
-{
-sum += _puts("(null)", 0);
-return (sum);
-}
-return (_puts(arg, 0));
+	if (!arg)
+	{
+		sum += _puts("(null)", 0);
+		return (sum);
+	}
+	return (_puts(arg, 0));
 }

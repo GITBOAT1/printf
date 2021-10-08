@@ -1,49 +1,41 @@
 #include "main.h"
-
 /**
  * _printf - writes the character c to stdout 100 charcter
  * @str: The character to print
- *
  * Return: On success number os read.
- * On error, -1 is returned, and errno is set appropriately.
  */
-
 int _printf(const char *str, ...)
 {
-	va_list vl;
-	int  i = 0, j = 0;
-	char buff[1000] = {0};
-	char *str_arg;
+	size_t s;
+
+	func_ptr[0] = c_fun;
+	func_ptr[1] = i_fun;
+	func_ptr[2] = s_fun;
+	func_ptr[3] = d_fun;
 
 	va_start(vl, str);
-	while (str && str[i])
+	buff = mem_alloc(str);
+	if (!buff)
+		return (-1);
+	i_m = 0;
+	j_m = 0;
+	for (s = 0; s < strlen(str); s++)
 	{
-		if (str[i] == '%')
+		printf("inthr len  %d\n",s);
+		if (str[i_m] == '%')
 		{
-			i++;
-			switch (str[i])
-			{
-			case 'c':{
-				buff[j] = (char)va_arg(vl, int);
-				j++;
-				break;
-			}
-			case 's': {
-				str_arg = va_arg(vl, char*);
-				strcpy(&buff[j], str_arg);
-				j += strlen(str_arg);
-				break;
-			}
-			}
+			i_m++;
+			func_ptr[choice(str[i_m])](i_m);
 		}
 		else
 		{
-			buff[j] = str[i];
-			j++;
+			buff[j_m] = str[i_m];
+			j_m++;
 		}
-		i++;
+		i_m++;
 	}
-	write(j, buff, i);
+	print(buff);
 	va_end(vl);
-	return (j);
+	free(buff);
+	return (j_m);
 }

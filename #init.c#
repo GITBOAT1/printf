@@ -1,0 +1,6 @@
+#include "main.h"
+
+fun_ptr = d;
+fun_ptr = c;
+fun_ptr = i;
+fun_ptr = s;
