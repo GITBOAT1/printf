@@ -1,41 +1,85 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <unistd.h>
+#include <string.h>
 #include "main.h"
 /**
- * _printf - writes the character c to stdout 100 charcter
- * @str: The character to print
- * Return: On success number os read.
+ * _printf - printf function
+ * @format: const char pointer
+ * Return: b_len
  */
-int _printf(const char *str, ...)
+int _printf(const char *format, ...)
 {
-	size_t s;
+	char *create_buff;
+	int i;
+	int j;
+	int b_len = 0;
+	char *s;
+	va_list list;
+	flags flags_t[] = {
+		{"c", print_c},
+		{"s", print_s},
+		{"i", print_i},
+		{"d", print_i},
+		{"u", print_u},
+		{"b", print_bin},
+		{"o", print_oct},
+		{"r", print_r},
+		{"X", print_hex},
+		{"x", print_hex_low},
+		{"R", rot13},
+		{NULL, NULL}
+	};
 
-	func_ptr[0] = c_fun;
-	func_ptr[1] = i_fun;
-	func_ptr[2] = s_fun;
-	func_ptr[3] = d_fun;
-
-	va_start(vl, str);
-	buff = mem_alloc(str);
-	if (!buff)
-		return (-1);
-	i_m = 0;
-	j_m = 0;
-	for (s = 0; s < strlen(str); s++)
+	create_buff = malloc(1024 * sizeof(char));
+	if (create_buff == NULL)
 	{
-		printf("inthr len  %d\n",s);
-		if (str[i_m] == '%')
+		free(create_buff);
+		return (-1);
+	}
+
+	va_start(list, format);
+
+	if (format == NULL || list == NULL)
+		return (-1);
+	for (i = 0; format[i] != '\0'; i++)
+	{
+		if (format[i] == '%' && format[i + 1] == '%')
+			continue;
+		else if (format[i] == '%')
 		{
-			i_m++;
-			func_ptr[choice(str[i_m])](i_m);
+			if (format[i + 1] == ' ')
+				i += return_position(format, i);
+			for (j = 0; flags_t[j].f != NULL; j++)
+			{
+				if (format[i + 1] == *(flags_t[j].c))
+				{
+					s = flags_t[j].f(list);
+					if (s == NULL)
+						return (-1);
+					_strlen(s);
+					_strcat(create_buff, s, b_len);
+					b_len += _strlen(s);
+					i++;
+					break;
+				}
+			}
+			if (flags_t[j].f == NULL)
+			{
+				create_buff[b_len] = format[i];
+				b_len++;
+			}
 		}
 		else
 		{
-			buff[j_m] = str[i_m];
-			j_m++;
+			create_buff[b_len] = format[i];
+			b_len++;
 		}
-		i_m++;
 	}
-	print(buff);
-	va_end(vl);
-	free(buff);
-	return (j_m);
+	create_buff[b_len] = '\0';
+	write(1, create_buff, b_len);
+	va_end(list);
+	free(create_buff);
+	return (b_len);
 }

@@ -1,45 +1,37 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef HOLBERTON_H
+#define HOLBERTON_H
 #include <stdarg.h>
 #include <stdio.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-int _printf(const char *format, ...);
-int print_char(va_list al);
-int print_str(va_list al);
-int _putchar(char c);
-int _puts(char *str, int ascii);
-char *_itoa(int, char*, int);
-char *_strrev(char*);
-void print(char *);
-int convert_alpha_numeric(int nb, int upper);
-char *convert_base(unsigned long nb, unsigned int base, int upper);
-char *mem_alloc(const char *);
-int choice(char);
-
-int (*func_ptr[6])(int);
-int d_fun(int);
-int c_fun(int);
-int i_fun(int);
-int s_fun(int);
-
-va_list vl;
-int i_m, j_m;
-char *buff, *str_arg, tmp[100];
-
 /**
- * struct func_id - struct used for identifying function
- * @c: string
- * @f: pointer to function
+ * struct print_flags - Struct
+ *
+ * @c: The operator
+ * @f: The function associated
  */
-typedef struct func_id
+struct print_flags
 {
-	char *c;
-	int (*f)(va_list);
-} function_identifier;
-
-int get_func(char, va_list);
-#endif 
+char *c;
+char *(*f)(va_list list);
+};
+typedef struct print_flags flags;
+int _printf(const char *format, ...);
+int _strlen(char *s);
+char *_strcat(char *dest, char *src, int n);
+char *print_c(va_list list);
+char *print_s(va_list list);
+char *print_i(va_list list);
+char *print_d(va_list list);
+char *print_p(va_list list);
+char *print_u(va_list list);
+char *print_oct(va_list list);
+char *print_hex(va_list list);
+char *print_hex_low(va_list list);
+char *print_r(va_list list);
+void *rev_string(char *s);
+char *print_bin(va_list list);
+char *rot13(va_list list);
+int return_position(const char *s, int n);
+int _numlen(int n);
+char *_strcpy(char *dest, char *src);
+#endif
